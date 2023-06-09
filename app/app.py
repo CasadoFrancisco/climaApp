@@ -104,6 +104,7 @@ def get_weather_forecast(city=None):
     else:
         return jsonify({"error": "No se pudo obtener el pronóstico del tiempo"})
 
+
 # Ruta para renderizar la página principal de la aplicación
 @app.route("/")
 def render_home():
