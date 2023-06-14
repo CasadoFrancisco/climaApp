@@ -33,76 +33,58 @@ def get_current_location():
 
     lat = location_data["lat"]
     lon = location_data["lon"]
+
     weather_response = requests.get(f"{API_BASE_URL}/weather?lat={lat}&lon={lon}&appid={API_KEY}")
     weather_data = weather_response.json()
-    main_weather_data = {
-        "city": weather_data["name"],
-        "description": weather_data["weather"][0]["description"],
-        "temperature": weather_data["main"]["temp"],
-        "humidity": weather_data["main"]["humidity"],
-        "pressure": weather_data["main"]["pressure"],
-        "wind_speed": weather_data["wind"]["speed"],
-        "wind_direction": weather_data["wind"]["deg"]
-    }
 
-    location_data["weather"] = main_weather_data
+    forecast_response = requests.get(f"{API_BASE_URL}/forecast?lat={lat}&lon={lon}&appid={API_KEY}")
+    forecast_data = forecast_response.json()
+
+    # Filtrar los datos del pronóstico para obtener solo los 5 días
+    forecast_list = forecast_data["list"]
+    forecast_filtered = [forecast_list[i] for i in range(0, len(forecast_list), 8)][:5]
+
+    location_data["weather"] = weather_data
+    location_data["forecast"] = forecast_filtered
 
     return jsonify(location_data)
 
 
+
+
+
 # Endpoint para obtener los datos de ubicación y estado del tiempo actual para una ciudad
 @app.route("/api/v1/<city>")
-def get_weather(city=None):
-    if city:
-        weather_response = requests.get(f"{API_BASE_URL}/weather?q={city}&appid={API_KEY}")
-        weather_data = weather_response.json()
-        main_weather_data = {
-            "city": weather_data["name"],
-            "description": weather_data["weather"][0]["description"],
-            "temperature": weather_data["main"]["temp"],
-            "humidity": weather_data["main"]["humidity"],
-            "pressure": weather_data["main"]["pressure"],
-            "wind_speed": weather_data["wind"]["speed"],
-            "wind_direction": weather_data["wind"]["deg"]
-        }
-        return jsonify(main_weather_data)
+@app.route("/api/v1/<city>/<country>")
+def get_weather(city, country=None):
+    if country:
+        query = f"{city},{country}"
     else:
-        ip_address = request.remote_addr
-        location_response = requests.get(f"http://ip-api.com/json/{ip_address}")
-        location_data = location_response.json()
-        lat = location_data["lat"]
-        lon = location_data["lon"]
-        weather_response = requests.get(f"{API_BASE_URL}/weather?lat={lat}&lon={lon}&appid={API_KEY}")
-        weather_data = weather_response.json()
-        main_weather_data = {
-            "city": weather_data["name"],
-            "description": weather_data["weather"][0]["description"],
-            "temperature": weather_data["main"]["temp"],
-            "humidity": weather_data["main"]["humidity"],
-            "pressure": weather_data["main"]["pressure"],
-            "wind_speed": weather_data["wind"]["speed"],
-            "wind_direction": weather_data["wind"]["deg"]
-        }
-        return jsonify(main_weather_data)
+        query = city
 
-# Endpoint para obtener los datos de ubicación y estado del tiempo para los próximos 5 días
+    weather_response = requests.get(f"{API_BASE_URL}/weather?q={query}&appid={API_KEY}")
+    weather_data = weather_response.json()
+    return jsonify(weather_data)
+
+
 @app.route("/api/v1/forecast/<city>")
-def get_weather_forecast(city=None):
-    if city:
-        # Si se proporciona una ciudad, obtener directamente el pronóstico del tiempo
-        weather_response = requests.get(f"{API_BASE_URL}/forecast?q={city}&appid={API_KEY}")
+@app.route("/api/v1/forecast/<city>/<country>")
+def get_weather_forecast(city, country=None):
+    if country:
+        query = f"{city},{country}"
     else:
-        # Si no se proporciona una ciudad, mostrar un mensaje de error
-        return jsonify({"error": "No se proporcionó una ciudad"})
+        query = city
 
+    weather_response = requests.get(f"{API_BASE_URL}/forecast?q={query}&appid={API_KEY}")
     weather_data = weather_response.json()
 
     if "list" in weather_data:
-        # Si se encontraron datos de pronóstico para la ciudad, devolver el pronóstico del tiempo
         forecast_data = weather_data["list"]
         return jsonify(forecast_data)
     else:
         return jsonify({"error": "No se pudo obtener el pronóstico del tiempo"})
+
+
 
 
 # Ruta para renderizar la página principal de la aplicación

@@ -3,7 +3,6 @@ import ico from "../assets/icono.png";
 import sendWhite from "../assets/search-white.png";
 import styled from "styled-components";
 
-
 export const NavbarComponent: React.FC = () => {
   return (
     <Conitaner>
@@ -22,7 +21,7 @@ export const NavbarComponent: React.FC = () => {
 
 const Conitaner = styled.div`
   font-family: "Roboto", sans-serif;
- 
+
   display: flex;
   align-items: center;
   justify-content: center;
@@ -51,7 +50,7 @@ const ContainerInput = styled.div`
   margin-left: 100px;
   align-items: center;
   justify-content: flex-start;
-  font-family: 'Quicksand', sans-serif;
+  font-family: "Quicksand", sans-serif;
 
   @media (max-width: 600px) {
     margin-left: 40px;
@@ -65,12 +64,11 @@ const Input = styled.input`
   padding-left: 10px;
   border-bottom: 1px solid white;
   color: white;
-  font-family: 'Quicksand', sans-serif;
-  &::placeholder{
+  font-family: "Quicksand", sans-serif;
+  &::placeholder {
     color: white;
   }
-  
- 
+
   @media (max-width: 600px) {
     width: 150px;
   }
