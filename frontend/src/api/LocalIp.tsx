@@ -13,6 +13,7 @@ interface WeatherData {
   windSpeed: number;
   windDireccion: string;
   statusSky:string;
+  
   // Agrega la propiedad "icon" de tipo string
   // otras propiedades y tipos
 }
@@ -25,6 +26,7 @@ export function useFetch(url: string): { data: WeatherData | null } {
       .then((response) => response.json())
       .then((data) => {
         const weatherData: WeatherData = {
+        
           city: data.city,
           region:data.regionName,
           country: data.country,
@@ -61,4 +63,5 @@ export function useFetch(url: string): { data: WeatherData | null } {
   }
 
   return { data };
+  console.log(data)
 }

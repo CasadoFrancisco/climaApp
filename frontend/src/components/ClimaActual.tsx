@@ -8,6 +8,10 @@ import { ClimaForecastComponent } from "./climaForecast";
 export const ClimaActualComponent: React.FC = () => {
   const { data } = useFetch("http://localhost:5000/api/v1/");
 
+
+
+
+
   if (!data) {
     return <div>Cargando...</div>;
   }
@@ -22,6 +26,7 @@ export const ClimaActualComponent: React.FC = () => {
   const wind = data.windSpeed;
   const windDireccion = data.windDireccion;
   const statusSky = data.statusSky;
+  
 
   return (
     <>
@@ -31,6 +36,7 @@ export const ClimaActualComponent: React.FC = () => {
           <Geo>{city}</Geo>
           <Geo>{region}</Geo>
           <Geo>{country}</Geo>
+          
         </ContainerOne>
 
         <ContainerTwo>
@@ -69,7 +75,7 @@ export const ClimaActualComponent: React.FC = () => {
             <WindDir>Direccion viento: {windDireccion}</WindDir>
           </ContainerClimaActual>
           <ContainerClimapost>
-          {/* <ClimaForecastComponent /> */}
+          <ClimaForecastComponent/>
           </ContainerClimapost>
         </ContainerTwo>
       </Container>

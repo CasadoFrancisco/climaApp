@@ -8,18 +8,6 @@ CORS(app, resources={r"/api/*": {"origins": "*"}})
 API_KEY = "059247747ec9cc8ddaed14eecee80d58"
 API_BASE_URL = "http://api.openweathermap.org/data/2.5"
 
-# Rutas para servir los archivos estáticos de Vite
-@app.route("/dist/<path:filename>")
-def serve_static(filename):
-    root_dir = os.path.dirname(os.path.abspath(__file__))
-    dist_dir = os.path.join(root_dir, "frontend", "dist")
-    return send_from_directory(dist_dir, filename)
-
-@app.route("/dist/assets/<path:filename>")
-def serve_assets(filename):
-    root_dir = os.path.dirname(os.path.abspath(__file__))
-    dist_dir = os.path.join(root_dir, "frontend", "dist", "assets")
-    return send_from_directory(dist_dir, filename)
 
 # Endpoint para obtener los datos de ubicación de la ciudad actual según ip-api
 @app.route("/api/v1/")
@@ -79,8 +67,20 @@ def get_weather_forecast(city, country=None):
     weather_data = weather_response.json()
 
     if "list" in weather_data:
-        forecast_data = weather_data["list"]
-        return jsonify(forecast_data)
+        forecast_list = weather_data["list"]
+        dates = set()
+        forecast_filtered = []
+
+        for forecast in forecast_list:
+            date = forecast["dt_txt"].split(" ")[0]
+            if date not in dates:
+                dates.add(date)
+                forecast_filtered.append(forecast)
+            
+            if len(forecast_filtered) == 5:
+                break
+        
+        return jsonify(forecast_filtered)
     else:
         return jsonify({"error": "No se pudo obtener el pronóstico del tiempo"})
 
