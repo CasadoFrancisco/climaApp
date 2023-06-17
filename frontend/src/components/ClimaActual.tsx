@@ -8,10 +8,6 @@ import { ClimaForecastComponent } from "./climaForecast";
 export const ClimaActualComponent: React.FC = () => {
   const { data } = useFetch("http://localhost:5000/api/v1/");
 
-
-
-
-
   if (!data) {
     return <div>Cargando...</div>;
   }
@@ -26,7 +22,6 @@ export const ClimaActualComponent: React.FC = () => {
   const wind = data.windSpeed;
   const windDireccion = data.windDireccion;
   const statusSky = data.statusSky;
-  
 
   return (
     <>
@@ -36,7 +31,6 @@ export const ClimaActualComponent: React.FC = () => {
           <Geo>{city}</Geo>
           <Geo>{region}</Geo>
           <Geo>{country}</Geo>
-          
         </ContainerOne>
 
         <ContainerTwo>
@@ -74,8 +68,16 @@ export const ClimaActualComponent: React.FC = () => {
             <Wind>velocidad viento: {wind} km/h</Wind>
             <WindDir>Direccion viento: {windDireccion}</WindDir>
           </ContainerClimaActual>
-          <ContainerClimapost>
-          <ClimaForecastComponent/>
+          <ContainerClimapost
+            initial={{ opacity: 0, scale: 0.5 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{
+              duration: 1,
+              delay: 0.5,
+              ease: [0, 0.71, 0.2, 1.01],
+            }}
+          >
+            <ClimaForecastComponent />
           </ContainerClimapost>
         </ContainerTwo>
       </Container>
@@ -111,7 +113,7 @@ const ContainerTwo = styled.div`
   justify-content: space-around;
   align-items: center;
   height: 600px;
-  width: 70%;
+  width: 75%;
   gap: 100px;
 `;
 const ContainerClimaActual = styled(motion.div)`
@@ -132,6 +134,7 @@ const ContainerClimaActual = styled(motion.div)`
 const StatusSky = styled.p`
   font-size: 40px;
   font-weight: 400;
+  color: #6a040f;
   &::first-letter {
     font-size: 55px;
   }
@@ -153,6 +156,7 @@ const ContainerTemp = styled.div`
 `;
 const Temp = styled.p`
   font-size: 40px;
+  color: #6a040f;
 `;
 const ContainerTempMM = styled.div`
   display: flex;
@@ -164,7 +168,7 @@ const Slash = styled.p`
   padding-right: 10px;
 `;
 const TempMax = styled.p`
-  color: #DC2F02;
+  color: #dc2f02;
   font-size: 25px;
   padding-right: 10px;
 `;
@@ -181,25 +185,34 @@ const Img = styled.img`
 const SensTerm = styled.p`
   padding-bottom: 10px;
   font-size: 20px;
+  color: #6a040f;
 `;
 const Humidity = styled.p`
   padding-bottom: 10px;
   font-size: 20px;
+  color: #6a040f;
 `;
 const Wind = styled.p`
   padding-bottom: 10px;
   font-size: 20px;
+  color: #6a040f;
 `;
 const WindDir = styled.p`
   padding-bottom: 10px;
   font-size: 20px;
+  color: #6a040f;
 `;
-const ContainerClimapost = styled.div`
+const ContainerClimapost = styled(motion.div)`
   display: flex;
+  border-radius: 20px;
   align-items: center;
   justify-content: center;
   flex: 2;
   height: 100%;
   padding: 30px 30px;
   background-color: red;
+  border: 1px solid rgba(0, 0, 0, 0.2); /* Color y opacidad de la sombra */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Efecto de sombra */
+  background-color: rgba(239, 196, 196, 0.19); /* Opacidad del fondo */
+  gap: 30px;
 `;

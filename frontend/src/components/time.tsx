@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import styled from "styled-components";
 
 const Clock: React.FC = () => {
   const [time, setTime] = useState<string>(new Date().toLocaleTimeString());
@@ -16,10 +17,12 @@ const Clock: React.FC = () => {
 
   return (
     <div>
-      <div>{time}</div>
-      <div>{dayOfWeek}</div>
+      <Div>{time}</Div>
+      <Div>{dayOfWeek}</Div>
     </div>
   );
 };
-
+const Div = styled.div`
+color: #6A040F;
+`
 export default Clock;

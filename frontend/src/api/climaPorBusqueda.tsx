@@ -1,19 +1,17 @@
 import { useState, useEffect } from "react";
 
 interface WeatherData {
-  city: string;
-  region:string;
+  
   temperature: number;
   humidity: number;
   icon: string;
-  country: string;
   termicSens: number;
   tempMax: number;
   tempMin: number;
   windSpeed: number;
   windDireccion: string;
   statusSky:string;
-  fecha:string
+  
   
   // Agrega la propiedad "icon" de tipo string
   // otras propiedades y tipos
@@ -27,19 +25,16 @@ export function useFetch(url: string): { data: WeatherData | null } {
       .then((response) => response.json())
       .then((data) => {
         const weatherData: WeatherData = {
-          fecha:data.forecast[0].dt_txt,
-          city: data.city,
-          region:data.regionName,
-          country: data.country,
-          temperature: Math.round(data.weather.main.temp - 273.15),
-          termicSens: Math.round(data.weather.main.feels_like - 273.15),
-          tempMax: Math.round(data.weather.main.temp_max - 273.15),
-          tempMin: Math.round(data.weather.main.temp_min - 273.15),
-          humidity: data.weather.main.humidity,
-          windSpeed: Math.round(data.weather.wind.speed * 3.6),
-          windDireccion: getWindDirection(data.weather.wind.deg),
-          statusSky:data.weather.weather[0].description,
-          icon: data.weather.weather[0].icon,
+    
+          temperature: Math.round(data.main.temp - 273.15),
+          termicSens: Math.round(data.main.feels_like - 273.15),
+          tempMax: Math.round(data.main.temp_max - 273.15),
+          tempMin: Math.round(data.main.temp_min - 273.15),
+          humidity: data.main.humidity,
+          windSpeed: Math.round(data.wind.speed * 3.6),
+          windDireccion: getWindDirection(data.wind.deg),
+          statusSky:data.weather[0].description,
+          icon: data.weather[0].icon,
           // Asigna el valor del icono
           // asigna otras propiedades según sea necesario
         };
