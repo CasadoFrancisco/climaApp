@@ -80,7 +80,7 @@ const ContainerGrand = styled(motion.div)`
   justify-content: center;
   flex-direction: column;
   gap: 10px;
-  height: 100%;
+  height: 80%;
 `;
 const Title = styled.h3`
   color: #6a040f;
@@ -101,12 +101,14 @@ const Container = styled(motion.div)`
 `;
 const ContainerOne = styled(motion.div)`
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   justify-content: center;
-  height: 40px;
+  
+  
 `;
 const ContainerTwo = styled(motion.div)`
   display: flex;
+  flex: 4;
   align-items: center;
   justify-content: center;
   flex-direction: row;

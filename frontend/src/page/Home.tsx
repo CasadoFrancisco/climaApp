@@ -1,15 +1,19 @@
-import React from "react";
+import React, {useState} from "react";
 import { NavbarComponent } from "../components/navbar";
 import { ClimaActualComponent } from "../components/ClimaActual";
 import styled from "styled-components";
 
 
 export const HomeComponent: React.FC = () => {
+  const [, setLocation] = useState("");
+  const handleSearch = (inputValue: string) => {
+    setLocation(inputValue);
+  };
   return (
     <>
       <Container>
-        <NavbarComponent />
-        <ClimaActualComponent/>
+        <NavbarComponent onSearch={handleSearch}/>
+        <ClimaActualComponent />
       </Container>
     </>
   );

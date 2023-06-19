@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
+import toast from "react-hot-toast";
 
 interface WeatherData {
-  
   temperature: number;
   humidity: number;
   icon: string;
@@ -10,11 +10,7 @@ interface WeatherData {
   tempMin: number;
   windSpeed: number;
   windDireccion: string;
-  statusSky:string;
-  
-  
-  // Agrega la propiedad "icon" de tipo string
-  // otras propiedades y tipos
+  statusSky: string;
 }
 
 export function useFetch(url: string): { data: WeatherData | null } {
@@ -24,8 +20,19 @@ export function useFetch(url: string): { data: WeatherData | null } {
     fetch(url)
       .then((response) => response.json())
       .then((data) => {
+        if (data.cod === "404") {
+          // No se encontró ninguna ubicación, mostrar alerta
+          toast.error("No se encontro ubicacion.",{
+            style:{
+              backgroundColor:"#9D0208",
+              color:"white"
+            }
+          })
+          setData(null);
+          return;
+        }
+
         const weatherData: WeatherData = {
-    
           temperature: Math.round(data.main.temp - 273.15),
           termicSens: Math.round(data.main.feels_like - 273.15),
           tempMax: Math.round(data.main.temp_max - 273.15),
@@ -33,10 +40,8 @@ export function useFetch(url: string): { data: WeatherData | null } {
           humidity: data.main.humidity,
           windSpeed: Math.round(data.wind.speed * 3.6),
           windDireccion: getWindDirection(data.wind.deg),
-          statusSky:data.weather[0].description,
+          statusSky: data.weather[0].description,
           icon: data.weather[0].icon,
-          // Asigna el valor del icono
-          // asigna otras propiedades según sea necesario
         };
         setData(weatherData);
       });
@@ -59,5 +64,4 @@ export function useFetch(url: string): { data: WeatherData | null } {
   }
 
   return { data };
-  console.log(data)
 }
