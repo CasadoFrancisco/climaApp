@@ -81,6 +81,12 @@ const ContainerGrand = styled(motion.div)`
   flex-direction: column;
   gap: 10px;
   height: 80%;
+  @media (max-width: 600px){
+    max-width: 600px;
+    width: 100%;
+    height: 100%;
+   
+  }
 `;
 const Title = styled.h3`
   color: #6a040f;
@@ -113,6 +119,11 @@ const ContainerTwo = styled(motion.div)`
   justify-content: center;
   flex-direction: row;
   gap: 10px;
+  @media (max-width: 600px) {
+    max-width: 600px;
+    width: 100%;
+    flex-direction: column;
+  }
 `;
 const ContainerTemp = styled.div`
   display: flex;

@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import toast from "react-hot-toast";
 
 interface WeatherData {
+  name:string;
   temperature: number;
   humidity: number;
   icon: string;
@@ -11,6 +12,7 @@ interface WeatherData {
   windSpeed: number;
   windDireccion: string;
   statusSky: string;
+  region:string;
 }
 
 export function useFetch(url: string): { data: WeatherData | null } {
@@ -33,6 +35,8 @@ export function useFetch(url: string): { data: WeatherData | null } {
         }
 
         const weatherData: WeatherData = {
+          name:data.name,
+          region:data.sys.country,
           temperature: Math.round(data.main.temp - 273.15),
           termicSens: Math.round(data.main.feels_like - 273.15),
           tempMax: Math.round(data.main.temp_max - 273.15),

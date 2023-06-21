@@ -1,58 +1,50 @@
-import React, { ChangeEvent, useState } from "react";
-import ico from "../assets/icono.png";
-import sendWhite from "../assets/search-white.png";
-import styled from "styled-components";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
+import styled from "styled-components";
 
-interface NavbarComponentProps {
-  onSearch: (location: string) => void;
-}
+import ico from "../assets/icono.png";
+import sendWhite from "../assets/search-white.png";
 
-export const NavbarComponent: React.FC<NavbarComponentProps> = ({
-  onSearch,
-}) => {
-  const [inputValue, setInputValue] = useState("");
-  
+export const NavbarComponent: React.FC = () => {
+  const [searchText, setSearchText] = useState("");
 
-  const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setInputValue(event.target.value);
-  };
+  const navigate = useNavigate();
 
-  const handleSearch = () => {
-    onSearch(inputValue);
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    navigate("/SearchLocation?search=" + searchText);
   };
 
   return (
-    <Conitaner>
+    <Conitaner onSubmit={handleSubmit}>
       <Link to="/">
         <ContainerIco>
           <Ico src={ico} />
         </ContainerIco>
       </Link>
-
       <ContainerInput>
         <Input
           type="text"
-          value={inputValue}
-          onChange={handleInputChange}
           placeholder="Clima Paises"
+          value={searchText}
+          onChange={(e) => setSearchText(e.target.value)}
         />
-        <Link to={`/SearchLocation/${inputValue}`}>
-          <ConntainerSend>
-            <Send onClick={handleSearch} src={sendWhite} />
-          </ConntainerSend>
-        </Link>
+        <ConntainerSend>
+          <StyledButton type="submit">
+            <Send src={sendWhite} />
+          </StyledButton>
+        </ConntainerSend>
       </ContainerInput>
-      
-      <Toaster/>
+      <Toaster />
     </Conitaner>
   );
 };
 
-const Conitaner = styled.div`
+const Conitaner = styled.form`
   font-family: "Roboto", sans-serif;
-
+  background: linear-gradient(to right, #ffba08, #f48c06, #dc2f02);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -60,8 +52,6 @@ const Conitaner = styled.div`
   padding-top: 20px;
   padding-bottom: 20px;
   background-color: transparent;
-  @media (max-width: 600px) {
-  }
 `;
 const ContainerIco = styled.div`
   display: flex;
@@ -122,7 +112,13 @@ const ConntainerSend = styled.div`
     background-color: #f48c06;
   }
 `;
-
+const StyledButton = styled.button`
+  border-style: none;
+  background-color: transparent;
+`;
 const Send = styled.img`
   height: 35px;
+  @media (max-width: 600px) {
+    height: 30px;
+  }
 `;

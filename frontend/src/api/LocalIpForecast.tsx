@@ -40,7 +40,7 @@ export function useFetch(url: string): { data: PropsData[] | null } {
           })
         );
         setData(parsedData);
-        console.log("Datos recibidos:", parsedData);
+        
       });
   }, [url]);
 

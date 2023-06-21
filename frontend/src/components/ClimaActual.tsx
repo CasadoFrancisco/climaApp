@@ -4,12 +4,13 @@ import Clock from "./time";
 import styled from "styled-components";
 import { motion } from "framer-motion";
 import { ClimaForecastComponent } from "./climaForecast";
+import InitialLoader from "./initialLoader";
 
 export const ClimaActualComponent: React.FC = () => {
   const { data } = useFetch("http://localhost:5000/api/v1/");
 
   if (!data) {
-    return <div>Cargando...</div>;
+    return <InitialLoader />;
   }
   const city = data.city;
   const region = data.region;
@@ -90,6 +91,9 @@ const Container = styled.div`
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  @media (max-width: 600px) {
+    width: 100%;
+  }
 `;
 const ContainerOne = styled.div`
   display: flex;
@@ -101,10 +105,20 @@ const ContainerOne = styled.div`
   gap: 12px;
   border-bottom: 1px solid white;
   color: #6a040f;
+  @media (max-width: 600px) {
+    width: 100%;
+  }
 `;
-const Geo = styled.h2``;
+const Geo = styled.h2`
+  @media (max-width: 600px) {
+    font-size: 13px;
+  }
+`;
 const InfoGeo = styled.p`
   font-weight: 700;
+  @media (max-width: 600px) {
+    font-size: 15px;
+  }
 `;
 const ContainerTwo = styled.div`
   padding-top: 50px;
@@ -115,6 +129,12 @@ const ContainerTwo = styled.div`
   height: 600px;
   width: 75%;
   gap: 100px;
+  @media (max-width: 600px) {
+    flex-direction: column;
+    max-width: 600px;
+    width: 100%;
+    height: 100%;
+  }
 `;
 const ContainerClimaActual = styled(motion.div)`
   display: flex;
@@ -138,13 +158,18 @@ const StatusSky = styled.p`
   &::first-letter {
     font-size: 55px;
   }
+  @media (max-width: 600px) {
+    font-size: 20px;
+    &::first-letter {
+      font-size: 30px;
+    }
+  }
 `;
 const ContainerCustom = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
   flex-direction: row;
-
   width: 70%;
 `;
 const ContainerTemp = styled.div`
@@ -157,6 +182,9 @@ const ContainerTemp = styled.div`
 const Temp = styled.p`
   font-size: 40px;
   color: #6a040f;
+  @media (max-width: 600px) {
+    font-size: 30px;
+  }
 `;
 const ContainerTempMM = styled.div`
   display: flex;
@@ -215,4 +243,10 @@ const ContainerClimapost = styled(motion.div)`
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Efecto de sombra */
   background-color: rgba(239, 196, 196, 0.19); /* Opacidad del fondo */
   gap: 30px;
+  @media (max-width: 600px) {
+    max-width: 600px;
+    width: 85%;
+    height: 100%;
+    margin-bottom: 50px;
+  }
 `;

@@ -64,5 +64,5 @@ export function useFetch(url: string): { data: WeatherData | null } {
   }
 
   return { data };
-  console.log(data)
+  
 }
