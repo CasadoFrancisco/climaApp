@@ -8,7 +8,7 @@ const InitialLoader: React.FC = () => {
   useEffect(() => {
     setTimeout(() => {
       setShowLoader(false);
-    }, 15000);
+    }, 8000);
   }, []);
 
   return (

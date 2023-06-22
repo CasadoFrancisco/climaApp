@@ -4,6 +4,7 @@ import styled from "styled-components";
 
 export const HomeComponent: React.FC = () => {
   return (
+    
     <>
       <Container>
         <ClimaActualComponent />
