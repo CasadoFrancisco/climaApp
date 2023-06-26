@@ -104,7 +104,7 @@ const ContainerOne = styled.div`
   width: 40%;
   gap: 12px;
   border-bottom: 1px solid white;
-  color: #6a040f;
+  color: ${({theme})=>theme.text};
   @media (max-width: 600px) {
     width: 100%;
   }
@@ -143,9 +143,9 @@ const ContainerClimaActual = styled(motion.div)`
   justify-content: center;
   flex-direction: column;
   flex: 1;
-  border: 1px solid rgba(0, 0, 0, 0.2); /* Color y opacidad de la sombra */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Efecto de sombra */
-  background-color: rgba(239, 196, 196, 0.19); /* Opacidad del fondo */
+  border: 1px solid ${({theme})=>theme.border}; /* Color y opacidad de la sombra */
+  box-shadow: 0 2px 4px ${({theme})=>theme.border}; /* Efecto de sombra */
+  background-color: ${({theme})=>theme.boxshadow}; /* Opacidad del fondo */
   border-radius: 20px;
   padding: 30px 30px;
   color: #03071e;
@@ -154,7 +154,7 @@ const ContainerClimaActual = styled(motion.div)`
 const StatusSky = styled.p`
   font-size: 40px;
   font-weight: 400;
-  color: #6a040f;
+  color: ${({theme})=>theme.text};
   &::first-letter {
     font-size: 55px;
   }
@@ -181,7 +181,7 @@ const ContainerTemp = styled.div`
 `;
 const Temp = styled.p`
   font-size: 40px;
-  color: #6a040f;
+  color: ${({theme})=>theme.text};
   @media (max-width: 600px) {
     font-size: 30px;
   }
@@ -196,12 +196,12 @@ const Slash = styled.p`
   padding-right: 10px;
 `;
 const TempMax = styled.p`
-  color: #dc2f02;
+  color: ${({theme})=>theme.tempMax};
   font-size: 25px;
   padding-right: 10px;
 `;
 const TempMin = styled.p`
-  color: #0077b6;
+  color: ${({theme})=>theme.tempMin};
   font-size: 25px;
   padding-right: 10px;
 `;
@@ -213,22 +213,22 @@ const Img = styled.img`
 const SensTerm = styled.p`
   padding-bottom: 10px;
   font-size: 20px;
-  color: #6a040f;
+  color:${({theme})=>theme.text};
 `;
 const Humidity = styled.p`
   padding-bottom: 10px;
   font-size: 20px;
-  color: #6a040f;
+  color: ${({theme})=>theme.text};
 `;
 const Wind = styled.p`
   padding-bottom: 10px;
   font-size: 20px;
-  color: #6a040f;
+  color: ${({theme})=>theme.text};
 `;
 const WindDir = styled.p`
   padding-bottom: 10px;
   font-size: 20px;
-  color: #6a040f;
+  color: ${({theme})=>theme.text};
 `;
 const ContainerClimapost = styled(motion.div)`
   display: flex;
@@ -238,10 +238,9 @@ const ContainerClimapost = styled(motion.div)`
   flex: 2;
   height: 100%;
   padding: 30px 30px;
-  background-color: red;
-  border: 1px solid rgba(0, 0, 0, 0.2); /* Color y opacidad de la sombra */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Efecto de sombra */
-  background-color: rgba(239, 196, 196, 0.19); /* Opacidad del fondo */
+  border: 1px solid${({theme})=>theme.border}; /* Color y opacidad de la sombra */
+  box-shadow: 0 2px 4px ${({theme})=>theme.border}; /* Efecto de sombra */
+  background-color: ${({theme})=>theme.boxshadow}; /* Opacidad del fondo */
   gap: 30px;
   @media (max-width: 600px) {
     max-width: 600px;

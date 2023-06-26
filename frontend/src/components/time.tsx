@@ -23,6 +23,6 @@ const Clock: React.FC = () => {
   );
 };
 const Div = styled.div`
-color: #6A040F;
+color: ${({theme})=>theme.text};
 `
 export default Clock;

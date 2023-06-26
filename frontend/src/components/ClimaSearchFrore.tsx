@@ -12,9 +12,10 @@ function useQuery() {
 export const ClimaSearchForeComponent: React.FC = () => {
   const query = useQuery();
   const search = query.get("search");
+  const additionalSearch = query.get("region");
 
   const { dataFore } = useFetch(
-    `http://localhost:5000/api/v1/forecast/` + search
+    `http://localhost:5000/api/v1/forecast/${search}/${additionalSearch}`
   );
 
   if (!dataFore) {
@@ -81,7 +82,7 @@ const Day = styled.h3`
   text-transform: capitalize;
 `;
 const P = styled.p`
-  color: #6a040f;
+  color: ${({ theme }) => theme.text};
 `;
 
 const ContainerGrand = styled(motion.div)`
@@ -98,7 +99,7 @@ const ContainerGrand = styled(motion.div)`
   }
 `;
 const Title = styled.h3`
-  color: #6a040f;
+  color: ${({ theme }) => theme.text};
 `;
 const Container = styled(motion.div)`
   display: flex;
@@ -108,9 +109,9 @@ const Container = styled(motion.div)`
   border-radius: 10px;
   border: 1px solid black;
   padding: 20px;
-  border: 1px solid rgba(0, 0, 0, 0.2); /* Color y opacidad de la sombra */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Efecto de sombra */
-  background-color: rgba(239, 196, 196, 0.19); /* Opacidad del fondo */
+  border: 1px solid ${({ theme }) => theme.border}; /* Color y opacidad de la sombra */
+  box-shadow: 0 2px 4px ${({ theme }) => theme.border}; /* Efecto de sombra */
+  background-color: ${({ theme }) => theme.boxshadow}; /* Opacidad del fondo */
   gap: 10px;
   height: auto;
 `;

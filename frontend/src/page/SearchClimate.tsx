@@ -14,5 +14,5 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  background: linear-gradient(to right, #ffba08, #f48c06, #dc2f02);
+  background-color: ${({theme})=>theme.background};
 `;
