@@ -7,7 +7,7 @@ import { ClimaForecastComponent } from "./climaForecast";
 import InitialLoader from "./initialLoader";
 
 export const ClimaActualComponent: React.FC = () => {
-  const { data } = useFetch("http://localhost:5000/api/v1/");
+  const { data } = useFetch("http://localhost:2996/api/v1/");
 
   if (!data) {
     return <InitialLoader />;

@@ -15,7 +15,7 @@ export const ClimaSearchForeComponent: React.FC = () => {
   const additionalSearch = query.get("region");
 
   const { dataFore } = useFetch(
-    `http://localhost:5000/api/v1/forecast/${search}/${additionalSearch}`
+    `http://localhost:2996/api/v1/forecast/${search}/${additionalSearch}`
   );
 
   if (!dataFore) {

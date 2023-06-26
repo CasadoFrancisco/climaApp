@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 
 
 export const ClimaForecastComponent: React.FC = () => {
-  const { data } = useFetch("http://localhost:5000/api/v1/");
+  const { data } = useFetch("http://localhost:2996/api/v1/");
   console.log(data)
 
   if (!data) {
